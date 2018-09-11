@@ -87,7 +87,7 @@ public class Cell {
         this.y = y;
     }
 
-    public boolean isMark() {
+    public boolean isMarked() {
         return mark;
     }
 
