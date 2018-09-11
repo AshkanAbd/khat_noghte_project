@@ -66,6 +66,7 @@ public class Handler {
     }
 
     private String prepareResult(Cell result) {
+        if (result == null) return null;
         return result.getX() + "-" + result.getY();
     }
 
@@ -74,6 +75,7 @@ public class Handler {
     }
 
     private String encode(String line) {
+        if (line == null) return null;
         return Base64.getEncoder().encodeToString(line.getBytes());
     }
 }
