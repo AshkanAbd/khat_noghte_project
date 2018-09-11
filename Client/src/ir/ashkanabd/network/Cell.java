@@ -4,6 +4,7 @@ public class Cell {
     private boolean free;
     private boolean block;
     private boolean node;
+    private boolean mark;
     private int marked;
     private Integer x;
     private Integer y;
@@ -13,8 +14,9 @@ public class Cell {
         this.y = y;
         free = false;
         block = false;
-        marked = -1;
+        mark = false;
         node = false;
+        marked = -1;
     }
 
     public Cell() {
@@ -22,16 +24,16 @@ public class Cell {
         this.y = 0;
         free = false;
         block = false;
-        marked = -1;
         node = false;
+        mark = false;
+        marked = -1;
     }
 
     void reset() {
-        x = 0;
-        y = 0;
         this.block = false;
         this.node = false;
         this.free = false;
+        this.mark = false;
         this.marked = -1;
     }
 
@@ -73,6 +75,7 @@ public class Cell {
 
 
     void setMarked(int marked) {
+        setMark();
         this.marked = marked;
     }
 
@@ -82,6 +85,14 @@ public class Cell {
 
     void setY(Integer y) {
         this.y = y;
+    }
+
+    public boolean isMark() {
+        return mark;
+    }
+
+    private void setMark() {
+        this.mark = true;
     }
 
     @Override

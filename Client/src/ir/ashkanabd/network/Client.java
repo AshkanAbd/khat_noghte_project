@@ -11,12 +11,11 @@ public class Client extends Thread {
     private PrintWriter writer;
     private OnAnswerListener onAnswerListener;
 
-    public Client() throws IOException {
+    Client() throws IOException {
         Socket socket = new Socket("127.0.0.1", 1898);
         socket.setKeepAlive(true);
         scn = new Scanner(socket.getInputStream());
         writer = new PrintWriter(socket.getOutputStream(), true);
-        new Handler(this);
     }
 
     void send(String line) {

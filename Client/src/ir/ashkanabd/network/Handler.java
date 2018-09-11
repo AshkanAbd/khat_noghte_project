@@ -2,27 +2,29 @@ package ir.ashkanabd.network;
 
 import ir.ashkanabd.AI.TeamAI;
 
+import java.io.IOException;
 import java.util.Base64;
 import java.util.Scanner;
 import java.util.concurrent.*;
 
-class Handler {
+public class Handler {
 
     private Cell cellMap[][];
     private AI teamAI;
     private Client client;
     private ExecutorService executor;
 
-    Handler(Client client) {
-        this.client = client;
+    public Handler() throws IOException {
+        this.client = new Client();
         cellMap = new Cell[9][9];
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                cellMap[i][j] = new Cell();
+                cellMap[i][j] = new Cell(i, j);
             }
         }
         teamAI = new TeamAI();
         client.setOnAnswerListener(this::onAnswer);
+        client.start();
         client.send(teamAI.getTeamName());
         executor = Executors.newSingleThreadExecutor();
     }
@@ -44,8 +46,6 @@ class Handler {
             line = scn.nextLine();
             for (int j = 0; j < 9; j++) {
                 cellMap[i][j].reset();
-                cellMap[i][j].setY(j);
-                cellMap[i][j].setX(i);
                 if (line.charAt(j) == 'A') cellMap[i][j].setMarked(1);
                 if (line.charAt(j) == 'B') cellMap[i][j].setMarked(2);
                 if (line.charAt(j) == '-') cellMap[i][j].setFree();
