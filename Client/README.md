@@ -32,6 +32,8 @@
 <br>
 <b>boolean isNode() : </b> Returns that cell is a node or not
 <br>
+<b>boolean isMarked() : </b> Returns that cell hase been marked by a player or not
+<br>
 <b>int getMarked() : </b> Returns the player ID that fills it
 
 # Notes
