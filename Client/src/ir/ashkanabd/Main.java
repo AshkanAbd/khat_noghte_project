@@ -1,6 +1,6 @@
 package ir.ashkanabd;
 
-import ir.ashkanabd.network.Handler;
+import ir.ashkanabd.game.Handler;
 
 import java.io.IOException;
 

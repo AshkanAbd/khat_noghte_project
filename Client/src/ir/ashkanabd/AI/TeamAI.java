@@ -1,7 +1,7 @@
 package ir.ashkanabd.AI;
 
-import ir.ashkanabd.network.AI;
-import ir.ashkanabd.network.Cell;
+import ir.ashkanabd.game.AI;
+import ir.ashkanabd.game.Cell;
 
 public class TeamAI extends AI {
 

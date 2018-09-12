@@ -11,14 +11,14 @@ public class Client extends Thread {
     private PrintWriter writer;
     private OnAnswerListener onAnswerListener;
 
-    Client() throws IOException {
+    public Client() throws IOException {
         Socket socket = new Socket("127.0.0.1", 1898);
         socket.setKeepAlive(true);
         scn = new Scanner(socket.getInputStream());
         writer = new PrintWriter(socket.getOutputStream(), true);
     }
 
-    void send(String line) {
+    public void send(String line) {
         writer.println(line);
     }
 
@@ -34,7 +34,7 @@ public class Client extends Thread {
         }
     }
 
-    void setOnAnswerListener(OnAnswerListener onAnswerListener) {
+    public void setOnAnswerListener(OnAnswerListener onAnswerListener) {
         this.onAnswerListener = onAnswerListener;
     }
 }
