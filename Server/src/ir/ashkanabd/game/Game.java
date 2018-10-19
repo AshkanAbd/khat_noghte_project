@@ -45,7 +45,6 @@ public class Game {
 
     private Game(String map[][], Controller controller) {
         this.map = map;
-        this.executor = Executors.newSingleThreadExecutor();
         this.nodeMap = controller.getNodeMatrix();
         this.controller = controller;
         this.stop = false;
@@ -69,13 +68,30 @@ public class Game {
 
     private String streamA() {
         gameRoom.sendA(encode(prepareMap(CLIENT_A)));
-        Future<String> answer = executor.submit(() -> scnA.nextLine());
+        executor = Executors.newSingleThreadExecutor();
+        Future<String> answer = executor.submit(() -> {
+            while (true) {
+                try {
+                    return scnA.nextLine();
+                } catch (Exception ignored) {
+                }
+            }
+
+        });
         return getAnswer(answer);
     }
 
     private String streamB() {
         gameRoom.sendB(encode(prepareMap(CLIENT_B)));
-        Future<String> answer = executor.submit(() -> scnB.nextLine());
+        executor = Executors.newSingleThreadExecutor();
+        Future<String> answer = executor.submit(() -> {
+            while (true) {
+                try {
+                    return scnB.nextLine();
+                } catch (Exception ignored) {
+                }
+            }
+        });
         return getAnswer(answer);
     }
 
@@ -83,10 +99,11 @@ public class Game {
         try {
             return answer.get(1, TimeUnit.MINUTES);
         } catch (InterruptedException | ExecutionException e) {
-            return null;
+            e.printStackTrace();
+            return Base64.getEncoder().encodeToString("0-0".getBytes());
         } catch (TimeoutException e) {
             System.out.println("timeout");
-            return null;
+            return Base64.getEncoder().encodeToString("0-0".getBytes());
         }
     }
 
