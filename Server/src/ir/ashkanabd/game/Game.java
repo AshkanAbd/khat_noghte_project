@@ -55,10 +55,10 @@ public class Game {
         mainLoop:
         {
             while (true) {
-                while (proccess(decode(streamA()), CLIENT_A)) {
+                while (process(decode(streamA()), CLIENT_A)) {
                     if (stop) break mainLoop;
                 }
-                while (proccess(decode(streamB()), CLIENT_B)) {
+                while (process(decode(streamB()), CLIENT_B)) {
                     if (stop) break mainLoop;
                 }
             }
@@ -142,18 +142,25 @@ public class Game {
         return Base64.getEncoder().encodeToString(line.getBytes());
     }
 
-    private boolean proccess(String commend, int clientID) {
-        if (commend == null) {
-            return false;
+    private boolean process(String command, int clientID) {
+        RandomChooser chooser = new RandomChooser(prepareMap(clientID));
+        if (command == null) {
+            command = chooser.choose();
         }
-        String indexesString[] = commend.split("-");
+        String indexesString[] = command.split("-");
         Integer indexesInteger[] = {Integer.parseInt(indexesString[0]), Integer.parseInt(indexesString[1])};
         if (map[indexesInteger[0]][indexesInteger[1]].equals("-")) {
             map[indexesInteger[0]][indexesInteger[1]] = clientID == CLIENT_A ? "A" : "B";
             updateUI(clientID, nodeMap[indexesInteger[0]][indexesInteger[1]]);
             return setScore(clientID);
+        } else {
+            command = chooser.choose();
+            indexesString = command.split("-");
+            indexesInteger = new Integer[]{Integer.parseInt(indexesString[0]), Integer.parseInt(indexesString[1])};
+            map[indexesInteger[0]][indexesInteger[1]] = clientID == CLIENT_A ? "A" : "B";
+            updateUI(clientID, nodeMap[indexesInteger[0]][indexesInteger[1]]);
+            return setScore(clientID);
         }
-        return false;
     }
 
     private void updateUI(int clientID, Node markingNode) {
