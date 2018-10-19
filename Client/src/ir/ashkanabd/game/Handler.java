@@ -62,6 +62,7 @@ public class Handler {
                 client.send(encode(prepareResult(future.get(1, TimeUnit.MINUTES))));
             } catch (InterruptedException | ExecutionException | TimeoutException e) {
                 System.out.println("Timeout");
+                client.send(encode(prepareResult(new Cell(0, 0))));
             }
         }
     }
