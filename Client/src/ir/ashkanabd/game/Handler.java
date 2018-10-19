@@ -40,6 +40,7 @@ public class Handler {
         line = scn.nextLine();
         teamAI.setMyID(Integer.parseInt(line.split("-")[0]));
         teamAI.setOppID(Integer.parseInt(line.split("-")[1]));
+        executor = Executors.newSingleThreadExecutor();
         line = scn.nextLine();
         teamAI.setMyScore(Integer.parseInt(line.split("-")[0]));
         teamAI.setOppScore(Integer.parseInt(line.split("-")[1]));
