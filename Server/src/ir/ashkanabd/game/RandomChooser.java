@@ -23,10 +23,12 @@ class RandomChooser {
         Scanner scn = new Scanner(mapToString);
         String line;
         Cell cellMap[][] = new Cell[9][9];
+        scn.nextLine();
+        scn.nextLine();
         for (int i = 0; i < 9; i++) {
             line = scn.nextLine();
             for (int j = 0; j < 9; j++) {
-                cellMap[i][j].reset();
+                cellMap[i][j] = new Cell(i, j);
                 if (line.charAt(j) == 'A') cellMap[i][j].setMarked(1);
                 if (line.charAt(j) == 'B') cellMap[i][j].setMarked(2);
                 if (line.charAt(j) == '-') cellMap[i][j].setFree();
